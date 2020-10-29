@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>post() 메소드</title>		
+    <script type="text/javascript" src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+    $(function(){
+    	$("#book").change(function(){
+    		var params = {book:$(this).val()}
+    		$.post("../ajaxServlet" , params , function(result){
+    			//alert(result);
+    			var img = "<img src='images/"+result+"' alt = '이미지..'>";
+    			$("#display").html(img);
+    		});
+    		
+    		
+    	});
+    })
+    
+    
+    </script>
+
+    
+       
+</head>
+<body>
+    <h3> $.post(url [,data] [,success] [,dataType]) 함수 </h3>
+	
+   <form>
+   	교재 선택 : 
+	<select name="book" id="book">
+		<option>--선택 --</option>
+		<option value="0">spring</option>
+		<option value="1">Android</option>
+		<option value="2">jQuery</option>
+		<option value="3">javaScript</option>
+	</select>
+   </form>
+    <div id="display"></div>
+</body>
+</html>
