@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 
-@WebServlet("/suggestServlet")
-public class SuggestServlet extends HttpServlet {
+
+@WebServlet("/suggestJsonLIB")
+public class SuggestJsonLIBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String [] words = {
 		"자바프로그래밍","자바스크립트","자바안녕","Java시작하기","Ajax란 무엇인가?",
@@ -39,19 +41,12 @@ public class SuggestServlet extends HttpServlet {
 		String keyWord = request.getParameter("keyWord");
 		//System.out.println(keyWord);
 		List<String>list =this.search(keyWord);
-		//list를 text형태로 변환해서 클라이언트쪽으로 응답
-		//데이터를 넘기는 방법을 고민해야한다.
-		//ex) 개수 | 단어, 단어,단어,...
-		String str = list.size()+"|";
-		for(int i=0;i<list.size();i++) {
-			if(list.size()==i+1) {
-				str+=list.get(i);
-			}else {
-				str+=list.get(i)+",";
-			}
-		}
+
+		//list를 json으로 변환한다
+		JSONArray arr = JSONArray.fromObject(list);
+		
 		PrintWriter out = response.getWriter();
-		out.print(str);
+		out.print(arr);
 	}
 	
 
